@@ -20,7 +20,7 @@ class ForeachOutput constructor(
 
         val innerParser = ContentParserFactory.Provide()
 
-        val MappedClass = Class.forName(RecommendTagModel::class.java.name)
+        val MappedClass = Class.forName(ElementMapClassName)
 
         val ResultObjects : Array<Any?> = IntRange(0, root.size - 1).map { MappedClass.getConstructor().newInstance() }.toTypedArray()
 

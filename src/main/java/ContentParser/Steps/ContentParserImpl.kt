@@ -41,7 +41,7 @@ class ContentParserImpl  constructor(
         val RequestParameters = content.getJSONObject("RequestParameter")
         val RequestCookie = content.getJSONObject("RequestCookie")
 
-        println(RequestUrl)
+//        println(RequestUrl)
 
         val Steps = content.getJSONArray("Steps")
         val elements = Jsoup.parse(File("htmls/piapro-home.html"), "utf-8")

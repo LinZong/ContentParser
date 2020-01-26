@@ -1,56 +1,56 @@
 {
-    "version": "0.0.1",
-    "RecommendTag": {
-        "RequestUrl": "https://piapro.jp/",
-        "RequestParameter": {},
-        "RequestCookie": {},
-        "Steps": [
-            {
-                "getElementsByClassSingle": {
-                    "Name": "cv_link",
-                    "Index": 0
+  "version": "0.0.1",
+  "RecommendTag": {
+    "RequestUrl": "https://piapro.jp/",
+    "RequestParameter": {},
+    "RequestCookie": {},
+    "Steps": [
+      {
+        "getElementsByClassSingle": {
+          "Name": "cv_link",
+          "Index": 0
+        }
+      },
+      {
+        "getElementsByTag": {
+          "Name": "span"
+        }
+      },
+      {
+        "forEachOutput": {
+          "ElementMapClassName": "ContentParser.Model.RecommendTagModel",
+          "GenerateOutputRule": {
+            "URL": [
+              {
+                "getElementsByTagSingle": {
+                  "Name": "a",
+                  "Index": 0
                 }
-            },
-            {
-                "getElementsByTag": {
-                    "Name": "span"
+              },
+              {
+                "attrSingle": {
+                  "Name": "href",
+                  "Terminate": true
                 }
-            },
-            {
-                "forEachOutput": {
-                    "ElementMapClassName": "RecommendTagModel",
-                    "GenerateOutputRule": {
-                        "URL": [
-                            {
-                                "getElementsByTagSingle": {
-                                    "Name": "a",
-                                    "Index": 0
-                                }
-                            },
-                            {
-                                "attrSingle": {
-                                    "Name": "href",
-                                    "Terminate": true
-                                }
-                            }
-                        ],
-                        "Text": [
-                            {
-                                "getElementsByTagSingle": {
-                                    "Name": "a",
-                                    "Index": 0
-                                }
-                            },
-                            {
-                                "textSingle": {
-                                    "Executable": true,
-                                    "Terminate": true
-                                }
-                            }
-                        ]
-                    }
+              }
+            ],
+            "Text": [
+              {
+                "getElementsByTagSingle": {
+                  "Name": "a",
+                  "Index": 0
                 }
-            }
-        ]
-    }
+              },
+              {
+                "textSingle": {
+                  "Executable": true,
+                  "Terminate": true
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
 }
