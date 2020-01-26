@@ -1,37 +1,29 @@
 package ContentParser.Steps
 
-import ContentParser.SingleInputMultiOutputElementStep
 import ContentParser.SingleInputSingleOutputElementStep
-import dagger.Binds
-import dagger.Module
-import dagger.multibindings.IntoMap
-import dagger.multibindings.StringKey
 
-@Module
-abstract class StepModules {
+class StepModules {
+    companion object {
+        @JvmStatic
+        val SingleInSingleOut = arrayOf(
+            "attrSingle",
+            "textSingle",
+            getElementById::class.java.simpleName,
+            getElementsByClassSingle::class.java.simpleName,
+            getElementsByTagSingle::class.java.simpleName
+        ).zip(arrayOf(
+            GetAttr(),
+            GetText(),
+            getElementById(),
+            getElementsByClassSingle(),
+            getElementsByTagSingle())).toMap()
 
+        val SingleInMultiOut = arrayOf(
+            getElementsByClass::class.java.simpleName,
+            getElementsByTag::class.java.simpleName
+        ).zip(arrayOf(getElementsByClass(), getElementsByTag())).toMap()
 
-    @Binds
-    @IntoMap
-    @StringKey("getElementById")
-    abstract fun getElementById(getElementById: getElementById): SingleInputSingleOutputElementStep
-
-
-    @Binds
-    @IntoMap
-    @StringKey("getElementsByClass")
-    abstract fun getElementsByClass(getElementsByClass: getElementsByClass): SingleInputMultiOutputElementStep
-
-
-    @Binds
-    @IntoMap
-    @StringKey("getElementsByClassSingle")
-    abstract fun getElementsByClassSingle(getElementsByClassSingle: getElementsByClassSingle): SingleInputSingleOutputElementStep
-
-    @Binds
-    @IntoMap
-    @StringKey("getElementsByTag")
-    abstract fun getElementsByTag(getElementsByTag: getElementsByTag): SingleInputMultiOutputElementStep
-
-
+        val MultiInMultiOut = arrayOf("forEachOutput")
+            .zip(arrayOf(ForeachOutput())).toMap()
+    }
 }

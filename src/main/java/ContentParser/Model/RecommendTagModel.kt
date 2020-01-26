@@ -1,3 +1,7 @@
 package ContentParser.Model
 
-data class RecommendTagModel(val URL: String, val Text: String)
+class RecommendTagModel {
+
+    lateinit var URL : String
+    lateinit var Text : String
+}

@@ -6,9 +6,9 @@ import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 import javax.inject.Inject
 
-class getElementsByTag @Inject constructor() : SingleInputMultiOutputElementStep {
+class getElementsByTag  constructor() : SingleInputMultiOutputElementStep<Element, Elements> {
     override fun Process(root: Element, JsonConfig: JSONObject): Elements {
         val className = JsonConfig.getString("Name")
-        return root.getElementsByClass(className)
+        return root.getElementsByTag(className)
     }
 }

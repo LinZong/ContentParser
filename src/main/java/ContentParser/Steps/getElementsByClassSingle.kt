@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject
 import org.jsoup.nodes.Element
 import javax.inject.Inject
 
-class getElementsByClassSingle @Inject constructor() : SingleInputSingleOutputElementStep {
+class getElementsByClassSingle  constructor() : SingleInputSingleOutputElementStep<Element> {
     override fun Process(root: Element, JsonConfig : JSONObject): Element {
         val className = JsonConfig.getString("Name")
         val index = JsonConfig.getIntValue("Index")

@@ -1,0 +1,56 @@
+{
+    "version": "0.0.1",
+    "RecommendTag": {
+        "RequestUrl": "https://piapro.jp/",
+        "RequestParameter": {},
+        "RequestCookie": {},
+        "Steps": [
+            {
+                "getElementsByClassSingle": {
+                    "Name": "cv_link",
+                    "Index": 0
+                }
+            },
+            {
+                "getElementsByTag": {
+                    "Name": "span"
+                }
+            },
+            {
+                "forEachOutput": {
+                    "ElementMapClassName": "RecommendTagModel",
+                    "GenerateOutputRule": {
+                        "URL": [
+                            {
+                                "getElementsByTagSingle": {
+                                    "Name": "a",
+                                    "Index": 0
+                                }
+                            },
+                            {
+                                "attrSingle": {
+                                    "Name": "href",
+                                    "Terminate": true
+                                }
+                            }
+                        ],
+                        "Text": [
+                            {
+                                "getElementsByTagSingle": {
+                                    "Name": "a",
+                                    "Index": 0
+                                }
+                            },
+                            {
+                                "textSingle": {
+                                    "Executable": true,
+                                    "Terminate": true
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}
