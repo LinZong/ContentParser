@@ -7,11 +7,9 @@ import com.alibaba.fastjson.JSONObject
 import org.jsoup.select.Elements
 import javax.inject.Inject
 
-class ForeachOutput constructor(
-) : MultiInputMultiOutputElementStep<Any> {
+class ForeachOutput : MultiInputMultiOutputElementStep<Any> {
 
     override fun Process(root: Elements, JsonConfig: JSONObject): Array<Any?> {
-//        TODO("not implemented")
         val ElementMapClassName = JsonConfig.getString("ElementMapClassName")
 
         val GenerateOutputRule = JsonConfig.getJSONObject("GenerateOutputRule")
@@ -22,8 +20,9 @@ class ForeachOutput constructor(
 
         val MappedClass = Class.forName(ElementMapClassName)
 
-        val ResultObjects : Array<Any?> = IntRange(0, root.size - 1).map { MappedClass.getConstructor().newInstance() }.toTypedArray()
-
+        val ResultObjects = IntRange(0, root.size - 1)
+                                            .map { MappedClass.getConstructor().newInstance() }
+                                            .toTypedArray()
 
         for (key in OutputObjKeys) {
             val steps = GenerateOutputRule.getJSONArray(key)

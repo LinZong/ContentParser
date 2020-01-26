@@ -1,7 +1,5 @@
 package ContentParser.Steps
 
-import ContentParser.SingleInputSingleOutputElementStep
-
 class StepModules {
     companion object {
         @JvmStatic
@@ -10,13 +8,16 @@ class StepModules {
             "textSingle",
             getElementById::class.java.simpleName,
             getElementsByClassSingle::class.java.simpleName,
-            getElementsByTagSingle::class.java.simpleName
+            getElementsByTagSingle::class.java.simpleName,
+            getRecommendThumbImageSingle::class.java.simpleName
         ).zip(arrayOf(
             GetAttr(),
             GetText(),
             getElementById(),
             getElementsByClassSingle(),
-            getElementsByTagSingle())).toMap()
+            getElementsByTagSingle(),
+            getRecommendThumbImageSingle()
+        )).toMap()
 
         val SingleInMultiOut = arrayOf(
             getElementsByClass::class.java.simpleName,

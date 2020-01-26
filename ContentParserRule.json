@@ -52,5 +52,193 @@
         }
       }
     ]
+  },
+  "RecommendList": {
+    "RequestUrl": "https://piapro.jp/",
+    "RequestParameter": {},
+    "RequestCookie": {},
+    "Steps": [
+      {
+        "getElementsByClassSingle": {
+          "Name": "snd_list",
+          "Index": 0
+        }
+      },
+      {
+        "getElementsByTag": {
+          "Name": "li"
+        }
+      },
+      {
+        "forEachOutput": {
+          "ElementMapClassName": "ContentParser.Model.RecommendItemModel",
+          "GenerateOutputRule": {
+            "Thumb": [
+              {
+                "getElementsByClassSingle": {
+                  "Name": "thumb-card",
+                  "Index": 0
+                }
+              },
+              {
+                "getRecommendThumbImageSingle": {}
+              }
+            ],
+            "ItemName": [
+              {
+                "getElementsByClassSingle": {
+                  "Name": "databox",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "table",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "tbody",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "tr",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByClassSingle": {
+                  "Name": "title",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "a",
+                  "Index": 0
+                }
+              },
+              {
+                "textSingle": {}
+              }
+            ],
+            "ArtistName": [
+              {
+                "getElementsByClassSingle": {
+                  "Name": "databox",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "table",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "tbody",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "tr",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByClassSingle": {
+                  "Name": "username",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "a",
+                  "Index": 0
+                }
+              },
+              {
+                "textSingle": {}
+              }
+            ],
+            "UploadDate": [
+              {
+                "getElementsByClassSingle": {
+                  "Name": "databox",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "table",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "tbody",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "tr",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByClassSingle": {
+                  "Name": "post",
+                  "Index": 0
+                }
+              },
+              {
+                "textSingle": {}
+              }
+            ],
+            "UploadTime": [
+              {
+                "getElementsByClassSingle": {
+                  "Name": "databox",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "table",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "tbody",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "tr",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByClassSingle": {
+                  "Name": "time",
+                  "Index": 0
+                }
+              },
+              {
+                "textSingle": {}
+              }
+            ]
+          }
+        }
+      }
+    ]
   }
 }
