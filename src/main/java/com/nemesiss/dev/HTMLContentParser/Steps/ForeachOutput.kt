@@ -1,11 +1,9 @@
-package ContentParser.Steps
+package com.nemesiss.dev.HTMLContentParser.Steps
 
-import ContentParser.ContentParserFactory
-import ContentParser.Model.RecommendTagModel
-import ContentParser.MultiInputMultiOutputElementStep
+import com.nemesiss.dev.HTMLContentParser.ContentParserFactory
+import com.nemesiss.dev.HTMLContentParser.MultiInputMultiOutputElementStep
 import com.alibaba.fastjson.JSONObject
 import org.jsoup.select.Elements
-import javax.inject.Inject
 
 class ForeachOutput : MultiInputMultiOutputElementStep<Any> {
 

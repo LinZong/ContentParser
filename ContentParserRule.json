@@ -18,7 +18,7 @@
       },
       {
         "forEachOutput": {
-          "ElementMapClassName": "ContentParser.Model.RecommendTagModel",
+          "ElementMapClassName": "com.nemesiss.dev.HTMLContentParser.Model.RecommendTagModel",
           "GenerateOutputRule": {
             "URL": [
               {
@@ -71,7 +71,7 @@
       },
       {
         "forEachOutput": {
-          "ElementMapClassName": "ContentParser.Model.RecommendItemModel",
+          "ElementMapClassName": "com.nemesiss.dev.HTMLContentParser.Model.RecommendItemModel",
           "GenerateOutputRule": {
             "Thumb": [
               {

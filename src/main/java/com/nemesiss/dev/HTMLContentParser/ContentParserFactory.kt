@@ -1,7 +1,7 @@
-package ContentParser
+package com.nemesiss.dev.HTMLContentParser
 
-import ContentParser.Steps.ContentParserImpl
-import ContentParser.Steps.StepModules
+import com.nemesiss.dev.HTMLContentParser.Steps.ContentParserImpl
+import com.nemesiss.dev.HTMLContentParser.Steps.StepModules
 
 class ContentParserFactory {
     companion object {

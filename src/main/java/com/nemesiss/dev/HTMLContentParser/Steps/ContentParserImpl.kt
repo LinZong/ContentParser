@@ -1,9 +1,9 @@
-package ContentParser.Steps
+package com.nemesiss.dev.HTMLContentParser.Steps
 
-import ContentParser.InvalidStepExecutorException
-import ContentParser.MultiInputMultiOutputElementStep
-import ContentParser.SingleInputMultiOutputElementStep
-import ContentParser.SingleInputSingleOutputElementStep
+import com.nemesiss.dev.HTMLContentParser.InvalidStepExecutorException
+import com.nemesiss.dev.HTMLContentParser.MultiInputMultiOutputElementStep
+import com.nemesiss.dev.HTMLContentParser.SingleInputMultiOutputElementStep
+import com.nemesiss.dev.HTMLContentParser.SingleInputSingleOutputElementStep
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
 import org.jsoup.Jsoup
@@ -13,9 +13,9 @@ import java.io.File
 
 
 class ContentParserImpl  constructor(
-    val singleInSingleOut: Map<String,  SingleInputSingleOutputElementStep<out Any>>,
-    val singleInMultiOut: Map<String,  SingleInputMultiOutputElementStep<Element,Elements>>,
-    val multiInMultiOut: Map<String,  MultiInputMultiOutputElementStep<Any>>
+    val singleInSingleOut: Map<String, SingleInputSingleOutputElementStep<out Any>>,
+    val singleInMultiOut: Map<String, SingleInputMultiOutputElementStep<Element, Elements>>,
+    val multiInMultiOut: Map<String, MultiInputMultiOutputElementStep<Any>>
 ) {
 
 

@@ -1,12 +1,11 @@
-package ContentParser.Steps
+package com.nemesiss.dev.HTMLContentParser.Steps
 
-import ContentParser.SingleInputSingleOutputElementStep
+import com.nemesiss.dev.HTMLContentParser.SingleInputSingleOutputElementStep
 import com.alibaba.fastjson.JSONObject
 import org.jsoup.nodes.Element
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 
-class getRecommendThumbImageSingle : SingleInputSingleOutputElementStep<String> {
+class getRecommendThumbImageSingle :
+    SingleInputSingleOutputElementStep<String> {
 
     companion object {
         @JvmStatic
@@ -29,9 +28,10 @@ class getRecommendThumbImageSingle : SingleInputSingleOutputElementStep<String> 
             return defaultThumb
         }
         val styleAttr = root.attr("style")
-        val matchBgImg = Pattern.compile("(?<=background-image:( )?url\\()(.*)(?=\\);)").matcher(styleAttr)
-        if(matchBgImg.find()) {
-           return "http:" + matchBgImg.group(2)
+        val bgImagePattern = "(?<=background-image:( )?url\\()(.*)(?=\\);)".toRegex()
+        val foundResult = bgImagePattern.find(styleAttr)
+        if(foundResult != null) {
+            return "http:${foundResult.value}"
         }
         return "th-empty"
     }

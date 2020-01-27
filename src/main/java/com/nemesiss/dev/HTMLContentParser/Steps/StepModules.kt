@@ -1,4 +1,4 @@
-package ContentParser.Steps
+package com.nemesiss.dev.HTMLContentParser.Steps
 
 class StepModules {
     companion object {

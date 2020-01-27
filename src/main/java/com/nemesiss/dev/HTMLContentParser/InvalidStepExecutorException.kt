@@ -1,4 +1,4 @@
-package ContentParser
+package com.nemesiss.dev.HTMLContentParser
 
 import java.lang.Exception
 

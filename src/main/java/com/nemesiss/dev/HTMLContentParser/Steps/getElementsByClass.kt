@@ -1,12 +1,12 @@
-package ContentParser.Steps
+package com.nemesiss.dev.HTMLContentParser.Steps
 
-import ContentParser.SingleInputMultiOutputElementStep
+import com.nemesiss.dev.HTMLContentParser.SingleInputMultiOutputElementStep
 import com.alibaba.fastjson.JSONObject
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
-import javax.inject.Inject
 
-class getElementsByClass  constructor() : SingleInputMultiOutputElementStep<Element, Elements> {
+class getElementsByClass  constructor() :
+    SingleInputMultiOutputElementStep<Element, Elements> {
     override fun Process(root: Element, JsonConfig: JSONObject): Elements {
         val className = JsonConfig.getString("Name")
         return root.getElementsByClass(className)

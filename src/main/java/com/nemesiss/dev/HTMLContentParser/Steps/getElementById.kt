@@ -1,11 +1,11 @@
-package ContentParser.Steps
+package com.nemesiss.dev.HTMLContentParser.Steps
 
-import ContentParser.SingleInputSingleOutputElementStep
+import com.nemesiss.dev.HTMLContentParser.SingleInputSingleOutputElementStep
 import com.alibaba.fastjson.JSONObject
 import org.jsoup.nodes.Element
-import javax.inject.Inject
 
-class getElementById constructor() : SingleInputSingleOutputElementStep<Element> {
+class getElementById constructor() :
+    SingleInputSingleOutputElementStep<Element> {
 
     override fun Process(root: Element, JsonConfig : JSONObject): Element {
         val id = JsonConfig.getString("Name")

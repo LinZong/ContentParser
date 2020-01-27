@@ -1,4 +1,4 @@
-package ContentParser.Model
+package com.nemesiss.dev.HTMLContentParser.Model
 
 class RecommendTagModel {
 

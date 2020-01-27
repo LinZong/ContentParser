@@ -1,6 +1,5 @@
-
-import ContentParser.ContentParserFactory
-import ContentParser.Model.RecommendItemModel
+package com.nemesiss.dev.HTMLContentParser
+import com.nemesiss.dev.HTMLContentParser.Model.RecommendItemModel
 import com.alibaba.fastjson.JSONObject
 import java.io.File
 
