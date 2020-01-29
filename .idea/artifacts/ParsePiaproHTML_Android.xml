@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="ParsePiaproHTML_Android">
+    <output-path>$PROJECT_DIR$/out/artifacts/ParsePiaproHTML_Android</output-path>
+    <root id="archive" name="ParsePiaproHTML_Android.jar">
+      <element id="module-output" name="ParsePiaproHTML" />
+    </root>
+  </artifact>
+</component>

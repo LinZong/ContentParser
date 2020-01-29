@@ -6,4 +6,5 @@ class RecommendItemModel {
     lateinit var ArtistName: String
     lateinit var UploadDate: String
     lateinit var UploadTime: String
+    lateinit var URL : String
 }

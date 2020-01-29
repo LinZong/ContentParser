@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="ParsePiaproHTML:jar">
+  <artifact type="jar" name="ParsePiaproHTML:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/ParsePiaproHTML_jar</output-path>
     <root id="archive" name="ParsePiaproHTML.jar">
       <element id="module-output" name="ParsePiaproHTML" />

@@ -6,14 +6,20 @@ class StepModules {
         val SingleInSingleOut = arrayOf(
             "attrSingle",
             "textSingle",
-            getElementById::class.java.simpleName,
+            "OutputSingle",
+            "HTMLTextRegexMatchSingle",
+            "getStyleAttributeBgImageSingle",
+            getElementByIdSingle::class.java.simpleName,
             getElementsByClassSingle::class.java.simpleName,
             getElementsByTagSingle::class.java.simpleName,
             getRecommendThumbImageSingle::class.java.simpleName
         ).zip(arrayOf(
             GetAttr(),
             GetText(),
-            getElementById(),
+            OutputSingle(),
+            HTMLTextRegexMatchSingle(),
+            getStyleAttributeBgImageSingle(),
+            getElementByIdSingle(),
             getElementsByClassSingle(),
             getElementsByTagSingle(),
             getRecommendThumbImageSingle()

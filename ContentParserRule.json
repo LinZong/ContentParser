@@ -201,6 +201,49 @@
                 "textSingle": {}
               }
             ],
+            "URL": [
+              {
+                "getElementsByClassSingle": {
+                  "Name": "databox",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "table",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "tbody",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "tr",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByClassSingle": {
+                  "Name": "title",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByTagSingle": {
+                  "Name": "a",
+                  "Index": 0
+                }
+              },
+              {
+                "attrSingle": {
+                  "Name": "href"
+                }
+              }
+            ],
             "UploadTime": [
               {
                 "getElementsByClassSingle": {
@@ -234,6 +277,79 @@
               },
               {
                 "textSingle": {}
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "MusicContent": {
+    "Steps": [
+      {
+        "OutputSingle": {
+          "ElementMapClassName": "com.nemesiss.dev.HTMLContentParser.Model.MusicContentInfo",
+          "GenerateOutputRule": {
+            "ContentID": [
+              {
+                "HTMLTextRegexMatchSingle": {
+                  "Regex": "(?<=contentId:').*(?=')"
+                }
+              }
+            ],
+            "CreateDate": [
+              {
+                "HTMLTextRegexMatchSingle": {
+                  "Regex": "(?<=createDate:')[0-9]*(?=')"
+                }
+              }
+            ],
+            "Title": [
+              {
+                "getElementsByClassSingle": {
+                  "Name": "cd_works-title",
+                  "Index": 0
+                }
+              },
+              {
+                "textSingle": {}
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "MusicPlayInfo": {
+    "Steps": [
+      {
+        "OutputSingle": {
+          "ElementMapClassName": "com.nemesiss.dev.HTMLContentParser.Model.MusicPlayInfo",
+          "GenerateOutputRule": {
+            "URL": [
+              {
+                "HTMLTextRegexMatchSingle": {
+                  "Regex": "(?<=mp3: ').*(?=')"
+                }
+              }
+            ],
+            "Thumb": [
+              {
+                "getElementsByClassSingle": {
+                  "Name": "music-box",
+                  "Index": 0
+                }
+              },
+              {
+                "getElementsByClassSingle": {
+                  "Name": "music-card-hz",
+                  "Index": 0
+                }
+              },
+              {
+                "getStyleAttributeBgImageSingle": {
+                  "UrlPrefix": "https://piapro.jp"
+                }
               }
             ]
           }

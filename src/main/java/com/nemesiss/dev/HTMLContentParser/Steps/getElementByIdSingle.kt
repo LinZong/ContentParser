@@ -4,7 +4,7 @@ import com.nemesiss.dev.HTMLContentParser.SingleInputSingleOutputElementStep
 import com.alibaba.fastjson.JSONObject
 import org.jsoup.nodes.Element
 
-class getElementById constructor() :
+class getElementByIdSingle constructor() :
     SingleInputSingleOutputElementStep<Element> {
 
     override fun Process(root: Element, JsonConfig : JSONObject): Element {

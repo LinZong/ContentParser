@@ -1,6 +1,7 @@
 package com.nemesiss.dev.HTMLContentParser
-import com.nemesiss.dev.HTMLContentParser.Model.RecommendItemModel
 import com.alibaba.fastjson.JSONObject
+import com.nemesiss.dev.HTMLContentParser.Model.MusicContentInfo
+import com.nemesiss.dev.HTMLContentParser.Model.MusicPlayInfo
 import java.io.File
 
 class Main {
@@ -9,16 +10,12 @@ class Main {
         fun main(args: Array<String>) {
 
             val parser = ContentParserFactory.Provide()
-
             val rootRules = JSONObject.parseObject(File("ContentParserRule.json").readText())
-            val RecommendTag = rootRules.getJSONObject("RecommendList")
+            val RecommendTag = rootRules.getJSONObject("MusicPlayInfo")
 
-            val Result = parser.ParseRule(RecommendTag) as Array<*>
+            val Result = parser.ParseRule(RecommendTag) as MusicPlayInfo
 
-            for (ttag in Result) {
-                val tag = ttag as RecommendItemModel
-                println("${tag.UploadDate} ${tag.UploadTime} -- ${tag.ItemName} -- ${tag.ArtistName} -- ${tag.Thumb}")
-            }
+            println(Result.Thumb)
         }
     }
 }

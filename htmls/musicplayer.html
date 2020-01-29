@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!-- saved from url=(0082)https://piapro.jp/html5_player_popup/?id=60va2gt3su46ynpl&cdate=20200126143740&p=0 -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">	<title>PIAPRO(ピアプロ)プレーヤー</title>
+	<meta name="description" content="PIAPRO(ピアプロ)のプレーヤーです。">
+	<link href="./musicplayer_files/standard.css" rel="stylesheet">
+	<link href="./musicplayer_files/jplayer.css" rel="stylesheet">
+	<link rel="stylesheet" href="./musicplayer_files/content_detail.css" type="text/css">
+	<link rel="stylesheet" href="./musicplayer_files/font-awesome.min.css">	<script src="./musicplayer_files/jquery-1.8.min.js.download"></script>
+	<script type="text/javascript" src="./musicplayer_files/jquery.jplayer.min.js.download"></script>
+	<script type="text/javascript" src="./musicplayer_files/jplayer.playlist.min.js.download"></script>
+		<script type="application/javascript">
+		var contentId = '60va2gt3su46ynpl';
+				var pre = contentId.substr(0, 2);
+		$(function() {
+			$('.jp-head').on('click', function() {
+				$("#jquery_jplayer_1").jPlayer('play', 0);
+			});
+			$('.jp-jump').on('click', function(){
+				var player = $("#jquery_jplayer_1");
+				var currentTime = player.data("jPlayer").status.currentTime;
+				chorus.some( function(val,index){
+					if( currentTime > chorus[chorus.length-1] ){
+						player.jPlayer('play', chorus[0]);
+						return true;
+					}
+					if( (index+1) <= chorus.length ){
+						if( currentTime < val ){
+							player.jPlayer('play', val);
+							return true;
+						}
+					}else{
+						return false;
+					}
+				});
+			});
+			$('.lyric-option').on('click', function(){
+				var i = $('#lyricMoreIcon');
+				var s = $('#lyricMoreSpan');
+				var p = $('.lyric-txt');
+				i.toggleClass('fa-chevron-circle-down');
+				i.toggleClass('fa-chevron-circle-up');
+				if( p.hasClass('open') == false ){
+					p.addClass('open');
+					s.text('一部を表示');
+				}else{
+					p.removeClass('open');
+					s.text('もっとみる');
+				}
+			});
+			myPlayList = new jPlayerPlaylist(
+					{
+						jPlayer: "#jquery_jplayer_1",
+						cssSelectorAncestor: "#jp_container_1"
+					},
+					[],
+					{
+						supplied: "mp3",
+						useStateClassSkin: true,
+						autoBlur: false,
+						smoothPlayBar: true,
+						keyEnabled: false,
+						audioFullScreen: false,
+						solution: "html"					}
+			);
+			var contentId = '60va2gt3su46ynpl';
+			var pre = contentId.substr(0, 2);
+			myPlayList.add({title: 'プリオシンのたびびと', artist: 'Saiphさん', mp3: 'https://cdn.piapro.jp/mp3_a/60/60va2gt3su46ynpl_20200126143740_audition.mp3'});
+		});
+	</script>
+	<link rel="shortcut icon" href="https://piapro.jp/favicon.ico?20130625">
+		</head>
+<body>
+<header class="playerheader">
+	<h1>プリオシンのたびびと</h1>
+	<div>
+		<p class="artist">by Saiphさん</p>
+		<p class="date">投稿日時：<span>2020/01/26 14:37:40</span></p>
+	</div>
+</header>
+<div class="music-box-whole">
+	<div class="music-box">
+				<div id="jacketCurrentImage" class="music-card-hz resize card-chara-empty" style="background-image:url(/images/card_chara/card-miku.png?20130625);"></div>
+						<div>
+			<div id="playerBox">
+				<div id="jp_container_1" class="jp-video jp-video-270p" role="application" aria-label="media player">
+					<div class="jp-type-playlist">
+						<div id="jquery_jplayer_1" class="jp-jplayer" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;"><audio id="jp_audio_0" preload="metadata" src="https://cdn.piapro.jp/mp3_a/60/60va2gt3su46ynpl_20200126143740_audition.mp3" title="プリオシンのたびびと" __idm_id__="893948929"></audio></div>
+						<div class="jp-gui">
+							<div class="jp-video-play" style="display: none;">
+								<button class="jp-video-play-icon" role="button" tabindex="0">play</button>
+							</div>
+							<div class="jp-interface">
+								<div class="jp-progress">
+									<div class="jp-seek-bar" style="width: 100%;"><div class="jp-play-bar" style="overflow: hidden; width: 0%;"></div></div>
+								</div>
+								<div class="jp-current-time" role="timer" aria-label="time">00:00</div>
+								<div class="jp-duration" role="timer" aria-label="duration">03:46</div>
+								<div class="jp-controls-holder">
+									<div class="jp-controls">
+										<button class="jp-head" role="button" tabindex="0">|&lt;-</button>
+										<button class="jp-play" role="button" tabindex="0">play</button>
+										<button class="jp-stop" role="button" tabindex="0">stop</button>
+																		</div>
+									<div class="jp-volume-controls">
+										<button class="jp-mute" role="button" tabindex="0">mute</button>
+										<button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+										<div class="jp-volume-bar"><div class="jp-volume-bar-value" style="width: 80%;"></div></div>
+									</div>
+									<div class="jp-toggles">
+										<button class="jp-repeat" role="button" tabindex="0">repeat</button>
+									</div>
+								</div>
+								<div class="jp-details" style="display: none;"><div class="jp-title" aria-label="title">プリオシンのたびびと</div></div>
+							</div>
+						</div>
+						<div class="jp-playlist"><ul style="display: block;"><li class="jp-playlist-current"><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item jp-playlist-current" tabindex="0">プリオシンのたびびと <span class="jp-artist">by Saiphさん</span></a></div></li></ul></div>
+						<div class="jp-no-solution" style="display: none;">
+							<span>Update Required</span>
+							To play the media you will need to either update your browser to a recent version or update your
+							<a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+				<div class="lyric-box">
+							<p class="lyric-txt">プリオシンのたびびと<br>
+<br>
+作詞・作曲・編曲・Mix: Saiph<br>
+Vocal: 初音ミク<br>
+<br>
+--<br>
+<br>
+はるかミライの　とおいとおい宇宙<br>
+ふたりぼっちの　たびびとの　物語<br>
+<br>
+遠い時間の　暗いそらの底で<br>
+ぼくらこれから　どこまで行こうかな<br>
+<br>
+苦しいことも　笑い合ったときも<br>
+かけがえない　旅の少しずつが　詰まってるよ<br>
+ぼくらこれからも　きっとずっと一緒に歩いていこう<br>
+<br>
+幾億千の　星の光が　あふれてく<br>
+<br>
+100億年の　深いそらのサイハテ<br>
+ぼくらここまで　頑張って来れたね<br>
+<br>
+あの日の星が　碧いこだまになって<br>
+優しく照らすよ　懐かしい匂いがする<br>
+ぼくらいつまでも　あの日の音　胸に刻み歌おう<br>
+<br>
+幾億千の　星の声が　遠く　聞こえる<br>
+ラララ…<br>
+<br>
+遠い日の歌　淡いしじま超えて<br>
+ふわりと巡るよ　懐かしい気持ちなんだ<br>
+おわりの時でも　ぼくらの歌　時を超えてひびくよ</p>
+				<div class="lyric-option">
+					<i id="lyricMoreIcon" class="fa fa-chevron-circle-down"></i><span id="lyricMoreSpan">もっとみる</span>
+					 <span class="music-card-author">Lyrics by <a target="_blank" href="https://piapro.jp/t/vbqj">Saiphさん</a></span>
+				</div>
+					</div>	</div>
+</div><div class="txt_c playerfooter" id="div_footer">
+	<div id="copyright" class="txt_c">© Crypton Future Media, INC. www.piapro.net</div>
+</div>
+
+</body></html>
