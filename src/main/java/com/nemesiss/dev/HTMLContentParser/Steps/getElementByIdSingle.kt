@@ -9,6 +9,6 @@ class getElementByIdSingle constructor() :
 
     override fun Process(root: Element, JsonConfig : JSONObject): Element {
         val id = JsonConfig.getString("Name")
-        return root.getElementById(id)
+        return root.getElementById(id) ?: Element("none")
     }
 }

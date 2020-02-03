@@ -7,6 +7,10 @@ import org.jsoup.nodes.Element
 class GetText  constructor() :
     SingleInputSingleOutputElementStep<String> {
     override fun Process(root: Element, JsonConfig: JSONObject): String {
-        return root.text()
+        return if(root != null) {
+            root.text()
+        } else {
+            "None"
+        }
     }
 }

@@ -1,6 +1,8 @@
 package com.nemesiss.dev.HTMLContentParser.Model
 
-class RecommendItemModel {
+import java.io.Serializable
+
+class RecommendItemModel : Serializable {
     lateinit var Thumb: String
     lateinit var ItemName: String
     lateinit var ArtistName: String

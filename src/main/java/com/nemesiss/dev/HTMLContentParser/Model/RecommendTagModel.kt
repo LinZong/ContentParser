@@ -1,6 +1,8 @@
 package com.nemesiss.dev.HTMLContentParser.Model
 
-class RecommendTagModel {
+import java.io.Serializable
+
+class RecommendTagModel : Serializable {
 
     lateinit var URL : String
     lateinit var Text : String

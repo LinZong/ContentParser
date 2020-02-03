@@ -1,0 +1,93 @@
+(function (width, height, src, createAndAppendIframe, programmaticFullScreen) {
+            var parentNode = (document.currentScript || (function () {
+                var nodeList = document.getElementsByTagName('script');
+                return nodeList.item(nodeList.length - 1);
+            }())).parentNode;
+            var iframeElement = createAndAppendIframe({ width: width, height: height, src: src }, parentNode);
+            var exitFullScreen = null;
+            window.addEventListener('message', function (event) {
+                if (event.source !== iframeElement.contentWindow) {
+                    return;
+                }
+                if (event.data.eventName === 'enterProgrammaticFullScreen') {
+                    exitFullScreen || (exitFullScreen = programmaticFullScreen(iframeElement));
+                }
+                else if (event.data.eventName === 'exitProgrammaticFullScreen') {
+                    exitFullScreen && exitFullScreen();
+                    exitFullScreen = null;
+                }
+            });
+        })(490, 307, 'https://embed.nicovideo.jp/watch/sm31805406?oldScript=1&referer=https%3A%2F%2Fpiapro.jp%2Ft%2FwS6I&from=0&allowProgrammaticFullScreen=1', function createAndAppendIframe(attributes, parent) {
+        var iframeElement = document.createElement('iframe');
+        iframeElement.setAttribute('allowfullscreen', 'allowfullscreen');
+        iframeElement.setAttribute('allow', 'autoplay');
+        iframeElement.setAttribute('frameborder', '0');
+        iframeElement.width = attributes.width.toString();
+        iframeElement.height = attributes.height.toString();
+        iframeElement.src = attributes.src;
+        parent.appendChild(iframeElement);
+        if (window.getComputedStyle(iframeElement).getPropertyValue('max-width') === 'none') {
+            iframeElement.style.maxWidth = '100%';
+        }
+        return iframeElement;
+    }, function (iframe) {
+        var stylesToModify = ['width', 'height', 'top', 'left', 'position', 'z-index', 'max-width', 'transform', '-webkit-transform', 'transform-origin', '-webkit-transform-origin'], originalStyles = stylesToModify.reduce(function (acc, style) {
+            acc[style] = {
+                value: iframe.style.getPropertyValue(style),
+                priority: iframe.style.getPropertyPriority(style)
+            };
+            return acc;
+        }, {}), timer, ended = false, initialScrollX = window.scrollX, initialScrollY = window.scrollY, wasLandscape = null;
+        function pollingResize() {
+            if (ended) {
+                return;
+            }
+            var isLandscape = window.innerWidth >= window.innerHeight, width = (isLandscape ? window.innerWidth : window.innerHeight) + 'px', height = (isLandscape ? window.innerHeight : window.innerWidth) + 'px';
+            if (iframe.style.width !== width || iframe.style.height !== height) {
+                iframe.style.setProperty('width', width, 'important');
+                iframe.style.setProperty('height', height, 'important');
+                window.scrollTo(0, 0);
+            }
+            if (isLandscape !== wasLandscape) {
+                wasLandscape = isLandscape;
+                if (isLandscape) {
+                    // 回転しない
+                    iframe.style.setProperty('transform', 'none', 'important');
+                    iframe.style.setProperty('-webkit-transform', 'none', 'important');
+                    iframe.style.setProperty('left', '0', 'important');
+                }
+                else {
+                    // 回転する
+                    iframe.style.setProperty('transform', 'rotate(90deg)', 'important');
+                    iframe.style.setProperty('-webkit-transform', 'rotate(90deg)', 'important');
+                    iframe.style.setProperty('left', '100%', 'important');
+                }
+            }
+            timer = setTimeout(startPollingResize, 200);
+        }
+        function startPollingResize() {
+            if (window.requestAnimationFrame) {
+                window.requestAnimationFrame(pollingResize);
+            }
+            else {
+                pollingResize();
+            }
+        }
+        startPollingResize();
+        iframe.style.setProperty('top', '0', 'important');
+        iframe.style.setProperty('position', 'fixed', 'important');
+        iframe.style.setProperty('z-index', '2147483647', 'important');
+        iframe.style.setProperty('max-width', 'none', 'important');
+        iframe.style.setProperty('transform-origin', '0% 0%', 'important');
+        iframe.style.setProperty('-webkit-transform-origin', '0% 0%', 'important');
+        return function () {
+            stylesToModify.forEach(function (style) {
+                var originalStyle = originalStyles[style];
+                iframe.style.removeProperty(style);
+                iframe.style.setProperty(style, originalStyle.value, originalStyle.priority);
+            });
+            clearTimeout(timer);
+            ended = true;
+            window.scrollTo(initialScrollX, initialScrollY);
+        };
+    });

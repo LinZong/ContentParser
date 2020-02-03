@@ -1,0 +1,114 @@
+//
+var defineNotLoginAudioParams={
+	contentId:'',
+	createDate:'',
+	isLogin:false,
+	isOwner:false,
+	isLyric:false,
+	contentShortUrl:''
+};
+
+function initNotLoginAudioFunc(argv){
+	defineNotLoginAudioParams = argv;
+
+	$('.music-play').on('click', function(){
+		var p = $(this).data('priority');
+		var c = $(this).data('card');
+		var height = 670;
+		if( c == 'music-card-vt' ){ height=840; }
+		wo_open = true;
+		if (wo == null) {
+			wo = window.open("", "openwindow", "width=600,height="+height+",toolbar=no,location=no,status=yes,menubar=no,scrollbars=yes,resizable=no");
+		}
+		if (wo.closed || !thisMovie("external_swf_popup", wo)) {
+			wo = window.open("https://" + location.hostname + "/html5_player_popup/?id="+defineNotLoginAudioParams['contentId']+"&cdate="+defineNotLoginAudioParams['createDate']+"&p="+p, "openwindow", "width=600,height="+height+",toolbar=no,location=no,status=yes,menubar=no,scrollbars=yes,resizable=no");
+			wo_open = false;
+		}
+		wo.focus();
+	});
+
+	$('.lyric-option').on('click', function(){
+		if( defineNotLoginAudioParams['isLyric'] == false ){ return ; }
+		var i = $('#lyricMoreIcon');
+		var s = $('#lyricMoreSpan');
+		var p = $('.lyric-txt');
+		i.toggleClass('fa-chevron-circle-down');
+		i.toggleClass('fa-chevron-circle-up');
+		if( p.hasClass('open') == false ){
+			p.addClass('open');
+			s.text('一部を表示');
+		}else{
+			p.removeClass('open');
+			s.text('もっとみる');
+		}
+	});
+
+	$('.miniJacket').on('click', function(){
+		var p = $(this).data('priority');
+		var id = $(this).data('jid');
+		var t = $(this).data('type');
+		var l = defineNotLoginAudioParams['contentShortUrl']+"/" + $(this).data('link');
+		var currentImage = $("#jacketCurrentImage");
+		currentImage.css("background-image", "url("+$("#bigJacket_"+p).attr("src")+")");
+
+		//	プレイヤにも情報を伝える
+		$('.music-play').data('priority', p);
+		$('.music-play').data('card', t);
+
+		// 縦長か横長かの切り替え
+		if( t == "music-card-hz" ){
+			if( currentImage.hasClass("music-card-hz") == false ){
+				currentImage.removeClass("music-card-vt");
+				currentImage.addClass("music-card-hz");
+			}
+		}else{
+			if( currentImage.hasClass("music-card-vt") == false ){
+				currentImage.removeClass("music-card-hz");
+				currentImage.addClass("music-card-vt");
+			}
+		}
+		// trimかresizeかの切り替え
+		if( $(this).data('resize') == 1 && currentImage.hasClass("resize") == true ){
+			currentImage.removeClass("resize");
+			currentImage.addClass("trim");
+		}
+		if( $(this).data('resize') == 0 && currentImage.hasClass("trim") == true ){
+			currentImage.removeClass("trim");
+			currentImage.addClass("resize");
+		}
+
+		$("#jacketCurrentLink").attr("href", l);
+		$("#jacketCurrentName").text( $(this).data('nickname')+'さん' );
+		$('li.now').removeClass("now");
+		$(this).addClass("now");
+
+		// ログインしていれば、削除ボタン、トリミング|リサイズボタン、の優先順位も変更
+		if(defineNotLoginAudioParams['isLogin'] == 1 ) {
+			$("#btnDelJacket").data('priority', p);
+			$("#btnDelJacket").data('jid', id);
+		}
+
+		// オーナーの時はロックとアンロックの優先順位も変更
+		if( defineNotLoginAudioParams['isOwner'] == 1 ){
+			$("#btnLockJacket").data('priority', p);
+			$("#btnLockJacket").data('jid', id);
+			$("#btnUnlockJacket").data('priority', p);
+			$("#btnUnlockJacket").data('jid', id);
+			if( $(this).data('lock') == 1){
+				$("#btnLockJacket").hide();
+				$("#btnUnlockJacket").show();
+			}else{
+				$("#btnUnlockJacket").hide();
+				$("#btnLockJacket").show();
+			}
+		}
+
+		// ロックされていない、または投稿者本人のジャケットならば削除、編集が可能
+		if( $(this).data('editable') == 1 ){
+			$("#btnDelJacket").show();
+		}else{
+			// それ以外はすべて隠しておく
+			$("#btnDelJacket").hide();
+		}
+	});
+}
