@@ -6,6 +6,7 @@ class StepModules {
         val SingleInSingleOut = arrayOf(
             "attrSingle",
             "textSingle",
+            "htmlSingle",
             "OutputSingle",
             "HTMLTextRegexMatchSingle",
             "getStyleAttributeBgImageSingle",
@@ -16,6 +17,7 @@ class StepModules {
         ).zip(arrayOf(
             GetAttr(),
             GetText(),
+            GetHTML(),
             OutputSingle(),
             HTMLTextRegexMatchSingle(),
             getStyleAttributeBgImageSingle(),

@@ -2,6 +2,7 @@ package com.nemesiss.dev.HTMLContentParser
 import com.alibaba.fastjson.JSONObject
 import com.nemesiss.dev.HTMLContentParser.Model.MusicContentInfo
 import com.nemesiss.dev.HTMLContentParser.Model.MusicPlayInfo
+import com.nemesiss.dev.HTMLContentParser.Model.RecommendItemModelImage
 import com.nemesiss.dev.HTMLContentParser.Model.RelatedMusicInfo
 import org.jsoup.Jsoup
 import java.io.File
@@ -16,10 +17,12 @@ class Main {
             val rootRules = JSONObject.parseObject(File("ContentParserRule.json").readText())
             val Steps = rootRules.getJSONObject("MusicContent").getJSONArray("Steps")
 
-            val elements = Jsoup.parse(File("htmls/musicid-nolyric.html"), "utf-8")
+            val elements = Jsoup.parse(File("htmls/musicid-withlyric.html"), "utf-8")
+//            val Result = (parser.GoSteps(elements, Steps) as Array<*>).map { it as RecommendItemModelImage }
+
             val Result = parser.GoSteps(elements, Steps) as MusicContentInfo
 
-            println(Result.ArtistAvatar)
+            println(Result.CreateDescription.split("<br>"))
 
 //            val fw = FileWriter("Output.txt")
 //                fw.write(Result.CreateDescription)
