@@ -1,9 +1,6 @@
 package com.nemesiss.dev.HTMLContentParser
 import com.alibaba.fastjson.JSONObject
-import com.nemesiss.dev.HTMLContentParser.Model.MusicContentInfo
-import com.nemesiss.dev.HTMLContentParser.Model.MusicPlayInfo
-import com.nemesiss.dev.HTMLContentParser.Model.RecommendItemModelImage
-import com.nemesiss.dev.HTMLContentParser.Model.RelatedMusicInfo
+import com.nemesiss.dev.HTMLContentParser.Model.*
 import org.jsoup.Jsoup
 import java.io.File
 import java.io.FileWriter
@@ -12,30 +9,38 @@ class Main {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-
             val parser = ContentParserFactory.Provide()
             val rootRules = JSONObject.parseObject(File("ContentParserRule.json").readText())
-            val Steps = rootRules.getJSONObject("MusicContent").getJSONArray("Steps")
+            val Steps = rootRules.getJSONObject("TextContent").getJSONArray("Steps")
+            val elements = Jsoup.parse(File("htmls/text1.html"), "utf-8")
 
-            val elements = Jsoup.parse(File("htmls/musicid-withlyric.html"), "utf-8")
-//            val Result = (parser.GoSteps(elements, Steps) as Array<*>).map { it as RecommendItemModelImage }
+            val Result = parser.GoSteps(elements, Steps) as TextContentInfo
+            println(Result.Text)
+            readLine()
+        }
 
-            val Result = parser.GoSteps(elements, Steps) as MusicContentInfo
+        @JvmStatic
+        fun FindUrl() {
+            val strWithUrl = "ポッピンキャンディ☆フィーバー！(<a href=\"/jump/?url=https%3A%2F%2Fnico.ms%2Fsm35880454\" target=\"_blank\">https://nico.ms/sm35880454</a>)の歌詞になります。"
+            val regex = "<a (?<=(.))href=\"(.*)\" .*>(.*)</a>".toRegex()
+            val domain = "https://piapro.jp"
 
-            println(Result.CreateDescription.split("<br>"))
+            var result = regex.find(strWithUrl)
+            if(result!=null) {
+                val total = result.groups[0]
 
-//            val fw = FileWriter("Output.txt")
-//                fw.write(Result.CreateDescription)
-//            fw.flush()
-//            fw.close()
+                val href = result.groups[2]
+                val innerText = result.groups[3]
 
-//
-//            Result.forEach {
-//                println("${it.Thumb}  ${it.Title}  ${it.Artist}")
-//            }
-//
-//            val parts = Result.CreateDetail.split(" | ")
-//            parts.forEach { println(it)}
+                val hrefBegin = total!!.range.first
+
+                val clickableText = strWithUrl.replace(regex,innerText!!.value)
+                println(clickableText)
+                println(clickableText.substring(hrefBegin, hrefBegin+innerText.value.length-1))
+            }
+            else {
+
+            }
         }
     }
 }

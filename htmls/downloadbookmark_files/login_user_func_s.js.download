@@ -1,0 +1,255 @@
+// need login functions
+var defineLoginParams={
+	isShowBookmarkCount:0,
+	discloseBookmarkYnClosed:0,
+	contentId:'',
+	pathBookmarkAddContent:'',
+	pathBookmarkDeleteContent:'',
+	pathJacketAdd:'',
+	defaultFolderId:0,
+	piaproId:'',
+	clientIp:''
+};
+var processingBookmark = false;
+var processingJacket=false;
+
+//	init with template argv
+function initLoginUserFuncN(argv){
+	defineLoginParams = argv;
+
+	$('#_agree').click(function() {
+		if ($('#_agree').is(':checked')) {
+			$('#_span_download_bookmark').css('display', 'none');
+			$('#_link_download_bookmark').css('display', 'inline');
+		} else {
+			$('#_span_download_bookmark').css('display', 'inline');
+			$('#_link_download_bookmark').css('display', 'none');
+		}
+	});
+
+	$('#_link_download_bookmark').click(function() {
+		var selected_folder_id = $("select[name='folder_id']").val();
+		if ($('#_agree').is(':checked')) {
+			$('#_form_download_bookmark').submit();
+			$('#_form_download_bookmark').hide();
+			$('#_button_download_bookmark').hide();
+			$('#_button_download').show();
+		}
+		return false;
+	});
+
+	$('#a_bookmark').on('click', function(){
+		if( processingBookmark === false ){
+			doBookmark(defineLoginParams['defaultFolderId']);
+		}else{
+			alert("エラー：現在ブックマーク処理実行中です。");
+		}
+		return false;
+	});
+
+	$('.delTagButton').click(function() {
+		var confirm_msg = 'タグを削除しますか？\n（削除した方の情報は記録されます。\n　ピアプロID：'+ defineLoginParams['piaproId'] +'\n　アクセス元：'+ defineLoginParams['clientIp'] +'）';
+		if (confirm(confirm_msg)) {
+			$('#deleteTag input[name="order"]').val($(this).data('order'));
+			$('#deleteTag').submit();
+		}
+		return false;
+	});
+
+	// 関連動画の追加
+	$('#addContentMoviePlus').on('click', function () {
+		$('#addContentMovieDiv').toggle('blind', '', 300);
+	});
+
+	//	動画の追加
+	$('#addContentMovieSubmit').on('click', function () {
+		var regex = /http(s)?:\/\/(www\.youtube\.com|youtu\.be|www\.nicovideo\.jp)/g;
+		var inputUrl = $('#addContentMovieUrl').val();
+		var found = regex.exec(inputUrl);
+		if( found != null){
+			$('#addContentMovieForm').submit();
+		}else{
+			alert("許可されていないURLです！");
+		}
+		return false;
+	});
+
+	//	動画の削除
+	$('.delMovieButton').click(function(){
+		var confirm_msg = '関連する動画を削除しますか？\n（削除した方の情報は記録されます。\n　ピアプロID：'+ defineLoginParams['piaproId'] +'\n　アクセス元：'+ defineLoginParams['clientIp'] +'）';
+		if (confirm(confirm_msg)) {
+			$('#deleteMovieForm input[name="mid"]').val($(this).data('mid'));
+			$('#deleteMovieForm').submit();
+		}
+		return false;
+	});
+
+	//	関連する作品の追加
+	$('#addContentRelationPlus').on('click', function () {
+		$('#addContentRelationDiv').toggle('blind', '', 300);
+	});
+	$('#addContentRelationSubmit').on('click', function () {
+		$('#addContentRelationForm').submit();
+		return false;
+	});
+
+	//	関連する作品の削除
+	$('.deleteRelation').on('click', function(){
+		var confirm_msg = '関連する作品から削除してよろしいですか？\n（設定した方の情報は記録されます。\n　ピアプロID：'+ defineLoginParams['piaproId'] +'\n　アクセス元：'+ defineLoginParams['clientIp'] +'）';
+		if (confirm(confirm_msg)) {
+			$('#deleteRelateContentForm input[name="rid"]').val($(this).data('rid'));
+			$('#deleteRelateContentForm').submit();
+		}
+		return false;
+	});
+
+	// カードジャケットの追加
+	$('#addJacketPlus').on('click', function () {
+		$('#addJacketDiv').toggle('blind', '', 300);
+		var icon = $('#addJacketIcon');
+		if( icon.hasClass('fa-plus-square') ){
+			icon.removeClass('fa-plus-square');
+			icon.addClass('fa-minus-square');
+		}else{
+			icon.removeClass('fa-minus-square');
+			icon.addClass('fa-plus-square');
+		}
+	});
+
+	// カードジャケットの追加
+	$('#addJacketSubmit').on('click', function () {
+		var confirm_msg = 'ジャケットの設定を行いますか？\n（設定した方の情報は記録されます。\n　ピアプロID：'+ defineLoginParams['piaproId'] +'\n　アクセス元：'+ defineLoginParams['clientIp'] +'）';
+		if (confirm(confirm_msg)) {
+			$('#addJacketForm').submit();
+		}
+		return false;
+	});
+
+	// ジャケットの削除
+	$('#btnDelJacket').click(function() {
+		var confirm_msg = 'ジャケットの削除を行いますか？\n（削除した方の情報は記録されます。\n　ピアプロID：'+ defineLoginParams['piaproId'] +'\n　アクセス元：'+ defineLoginParams['clientIp'] +'）';
+		if (confirm(confirm_msg)) {
+			$('#deleteJacketForm input[name="priority"]').val($(this).data('priority'));
+			$('#deleteJacketForm input[name="jid"]').val($(this).data('jid'));
+			$('#deleteJacketForm').submit();
+		}
+		return false;
+	});
+
+	//	ジャケットを収めて表示するかどうかの切り替え
+	$('#addJacketForm [id=addJacketResizeHZ1]').on('change', function(){
+		$('#addJacketResizeHZ0').parent().removeClass('cardset-selected');
+		$('#addJacketResizeHZ1').parent().addClass('cardset-selected');
+	});
+	$('#addJacketForm [id=addJacketResizeHZ0]').on('change', function(){
+		$('#addJacketResizeHZ1').parent().removeClass('cardset-selected');
+		$('#addJacketResizeHZ0').parent().addClass('cardset-selected');
+	});
+	$('#addJacketForm [id=addJacketResizeVT1]').on('change', function(){
+		$('#addJacketResizeVT0').parent().removeClass('cardset-selected');
+		$('#addJacketResizeVT1').parent().addClass('cardset-selected');
+	});
+	$('#addJacketForm [id=addJacketResizeVT0]').on('change', function(){
+		$('#addJacketResizeVT1').parent().removeClass('cardset-selected');
+		$('#addJacketResizeVT0').parent().addClass('cardset-selected');
+	});
+}
+
+//	bookmark func
+function doBookmark(argv_folderId){
+	var btn = $("#a_bookmark");
+	var mode = null;
+	if( btn.hasClass("liked") === true){
+		mode=-1;
+	}else{
+		mode=1;
+	}
+	btn.toggleClass("liked");
+	processingBookmark = true;
+	if( defineLoginParams['isShowBookmarkCount'] !== defineLoginParams['discloseBookmarkYnClosed'] ){
+		var span = $("#spanBookmarkCount");
+		var currentCount = parseInt(span.html());
+		currentCount += mode;
+		if( currentCount < 0 ){ currentCount = 0; }
+		span.html(currentCount);
+	}
+	var action = null;
+	var data = { id: defineLoginParams['contentId'], folder_id: argv_folderId };
+	var callback = function(res) {
+		processingBookmark = false;
+	};
+	if( mode === 1){
+		data.id = defineLoginParams['contentId'];
+		action = defineLoginParams['pathBookmarkAddContent'];
+	}else{
+		data.cid = defineLoginParams['contentId'];
+		action = defineLoginParams['pathBookmarkDeleteContent'];
+	}
+	$.post(action, data, callback, 'json');
+}
+
+function ajaxJacket(){
+	if( processingJacket == false ){
+		$("#divJacketAjaxErrorBox").css('color', 'gray');
+		$("#divJacketAjaxErrorBox").html("作品情報読み込み中...<i class='fa fa-spin fa-spinner' style='font-size: 1.5em'></i>");
+		processingJacket = true;
+		$.ajax({
+			type:"get",
+			url:defineLoginParams['pathJacketAdd'],
+			data:{
+				"url":$('#addJacketForm input[name="url"]').val(),
+				"id":$('#addJacketForm input[name="id"]').val()
+			},
+			success: function(res){
+				var baseHeight = parseInt($('#addJacketDivMore').data('height'));
+				if( res.status == "ok"){
+					$("#divJacketAjaxErrorBox").css('color', 'gray');
+					$("#divJacketAjaxErrorBox").html('');
+					$("#addJacketSubmitDiv").show();
+					if( res.cardType == 'hz'){
+						$('#card-preview-hz').show();
+						$('#addJacketResizeHZ1').attr('checked', 'checked');
+						$('#card-preview-hz-resize').css("background-image", 'url("'+res.thumbnail+'")');
+						$('#card-preview-hz-trim').css("background-image", 'url("'+res.thumbnail+'")');
+						$('#card-preview-vt').hide();
+						adjustColorbox(null, 500); //--> see not_login_user_func.js
+					}else{
+						$('#card-preview-vt').show();
+						$('#addJacketResizeVT1').attr('checked', 'checked');
+						$('#card-preview-vt-resize').css("background-image", 'url("'+res.thumbnail+'")');
+						$('#card-preview-vt-trim').css("background-image", 'url("'+res.thumbnail+'")');
+						$('#card-preview-hz').hide();
+						adjustColorbox(null, 500); //--> see not_login_user_func.js
+					}
+				}else{
+					var errorMessage = {
+						'not_auth_user':'ログインしていないため実行できません',
+						'bad_url':'ピアプロの作品URLを入力してください',
+						'bad_audio_id':'オンガク作品の指定が不正です',
+						'bad_audio_content':'存在しないオンガク作品が指定されました',
+						'bad_image_content':'ジャケットに使用できない作品が指定されました。イラストではない作品またはコラボ宛ての投稿作品は使用できません',
+						'bad_image_format':'ジャケットに使用できない画像フォーマットの作品が指定されました。JPEG/PNGの画像のみジャケットに使用可能です',
+						'bad_image_owner':'ジャケットに使用できないイラスト作品が指定されました。',
+						'bad_image_license':'ピアプロライセンスではない作品はジャケットに使用できません',
+						'bad_image_original_license':'オリジナルライセンスが設定されている作品はジャケットに使用できません',
+						'max_jacket_count':'これ以上ジャケット設定することができません。',
+						'used_jacket':'この作品はすでにジャケットとして設定されています'
+					};
+					$("#divJacketAjaxErrorBox").css('color', 'red');
+					$("#divJacketAjaxErrorBox").html(errorMessage[res.message]);
+					$('#card-preview-vt').hide();
+					$('#card-preview-hz').hide();
+					$("#addJacketSubmitDiv").hide();
+				}
+				processingJacket = false;
+			},
+			error: function(res){
+				processingJacket = false;
+				alert("作品情報の取得に失敗しました");
+			}
+		});
+	}else{
+		alert("現在処理を実行中です、お待ち下さい。");
+	}
+	return false;
+}

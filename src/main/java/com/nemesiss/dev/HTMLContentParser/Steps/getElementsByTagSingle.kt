@@ -7,7 +7,8 @@ import org.jsoup.nodes.Element
 class getElementsByTagSingle :
     SingleInputSingleOutputElementStep<Element> {
     override fun Process(root: Element, JsonConfig: JSONObject): Element {
-        return root.getElementsByTag(JsonConfig.getString("Name"))[0]
+        val index = JsonConfig.getIntValue("Index")
+        return root.getElementsByTag(JsonConfig.getString("Name"))[index]
     }
 
 }
