@@ -12,7 +12,7 @@ import org.jsoup.select.Elements
 import java.io.File
 
 
-class ContentParserImpl  constructor(
+class ContentParserImpl constructor(
     val singleInSingleOut: Map<String, SingleInputSingleOutputElementStep<out Any>>,
     val singleInMultiOut: Map<String, SingleInputMultiOutputElementStep<Element, Elements>>,
     val multiInMultiOut: Map<String, MultiInputMultiOutputElementStep<Any>>
@@ -25,6 +25,7 @@ class ContentParserImpl  constructor(
             return StepName.matches(Regex("^.*Single$"))
         }
 
+        @JvmStatic
         fun IsMultiInput(StepName: String): Boolean {
             return StepName.matches(Regex("^forEach.*\$"))
         }
@@ -36,12 +37,12 @@ class ContentParserImpl  constructor(
         println(multiInMultiOut.size)
     }
 
-    fun ParseRule(content: JSONObject) : Any {
-        val RequestUrl = content.getString("RequestUrl")
-        val RequestParameters = content.getJSONObject("RequestParameter")
-        val RequestCookie = content.getJSONObject("RequestCookie")
-
-//        println(RequestUrl)
+    fun ParseRule(content: JSONObject): Any {
+//        val RequestUrl = content.getString("RequestUrl")
+//        val RequestParameters = content.getJSONObject("RequestParameter")
+//        val RequestCookie = content.getJSONObject("RequestCookie")
+//
+////        println(RequestUrl)
 
         val Steps = content.getJSONArray("Steps")
         val elements = Jsoup.parse(File("htmls/musicid.html"), "utf-8")
@@ -57,21 +58,25 @@ class ContentParserImpl  constructor(
         val StepCount = steps.size
 
         for (i in 0 until StepCount) {
-            var step = steps.getJSONObject(i)
+            val step = steps.getJSONObject(i)
             CurrentStepName = step.keys.first()
             CurrentStepRule = step.getJSONObject(CurrentStepName)
-            if (IsSingleOutput(CurrentStepName)) {
-                val stepProcessor = singleInSingleOut[CurrentStepName]
-                    ?: throw InvalidStepExecutorException("Error! Empty step processor! $CurrentStepName")
-                LastStepResult = stepProcessor.Process(LastStepResult as Element, CurrentStepRule)
-            } else if (IsMultiInput(CurrentStepName)) {
-                val stepProcessor = multiInMultiOut[CurrentStepName]
-                    ?: throw InvalidStepExecutorException("Error! Empty step processor! $CurrentStepName")
-                LastStepResult = stepProcessor.Process(LastStepResult as Elements, CurrentStepRule)
-            } else {
-                val stepProcessor = singleInMultiOut[CurrentStepName]
-                    ?: throw InvalidStepExecutorException("Error! Empty step processor! $CurrentStepName")
-                LastStepResult = stepProcessor.Process(LastStepResult as Element, CurrentStepRule)
+            LastStepResult = when {
+                IsSingleOutput(CurrentStepName) -> {
+                    val stepProcessor = singleInSingleOut[CurrentStepName]
+                        ?: throw InvalidStepExecutorException("Error! Empty step processor! $CurrentStepName")
+                    stepProcessor.Process(LastStepResult as Element, CurrentStepRule)
+                }
+                IsMultiInput(CurrentStepName) -> {
+                    val stepProcessor = multiInMultiOut[CurrentStepName]
+                        ?: throw InvalidStepExecutorException("Error! Empty step processor! $CurrentStepName")
+                    stepProcessor.Process(LastStepResult as Elements, CurrentStepRule)
+                }
+                else -> {
+                    val stepProcessor = singleInMultiOut[CurrentStepName]
+                        ?: throw InvalidStepExecutorException("Error! Empty step processor! $CurrentStepName")
+                    stepProcessor.Process(LastStepResult as Element, CurrentStepRule)
+                }
             }
         }
         return LastStepResult
