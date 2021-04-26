@@ -1,10 +1,9 @@
 package com.nemesiss.dev.HTMLContentParser
 
 import com.alibaba.fastjson.JSONObject
-import com.nemesiss.dev.HTMLContentParser.Model.*
+import com.nemesiss.dev.HTMLContentParser.model.*
 import org.jsoup.Jsoup
 import java.io.File
-import java.io.FileWriter
 
 class Main {
     companion object {
@@ -12,12 +11,11 @@ class Main {
         fun main(args: Array<String>) {
             val parser = ContentParserFactory.Provide()
             val rootRules = JSONObject.parseObject(File("ContentParserRule.json").readText())
-            val Steps = rootRules.getJSONObject("Submission-IMAGE").getJSONArray("Steps")
-            val elements = Jsoup.parse(File("htmls/submission-image.html"), "utf-8")
+            val Steps = rootRules.getJSONObject("Submission-MUSIC").getJSONArray("Steps")
+            val elements = Jsoup.parse(File("htmls/submission-music.html"), "utf-8")
 
-            val Result = (parser.GoSteps(elements, Steps) as Array<*>).map { elem -> elem as RecommendItemModelImage }
+            val Result = (parser.GoSteps(elements, Steps) as Array<*>).map { elem -> elem as RecommendItemModel }
             println(Result.size)
-            readLine()
         }
 
         @JvmStatic
